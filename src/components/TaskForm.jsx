@@ -3,13 +3,13 @@ import Tag from "./Tag.jsx";
 
 import "./TaskForm.css";
 
-const TaskForm = () => {
+const TaskForm = ({setTasks}) => {
   const [taskData, setTaskData] = useState({
     task:"",
     status:"todo",
     tags: []
   })
-  const handleChange = e =>{
+  const handleChange = (e) =>{
     const {name, value} = e.target;
     setTaskData ((prev) =>{
       return {...prev, [name]: value}
@@ -19,7 +19,14 @@ const TaskForm = () => {
   
   const handleSubmit = (e) =>{
     e.preventDefault();
-    console.log(taskData);
+    setTasks((prev) =>{
+      return [...prev, taskData]
+    });
+    setTaskData({
+      task:"",
+      status:"todo",
+      tags:[]
+    });
   }
 
   const checkTag = (tag) =>{
